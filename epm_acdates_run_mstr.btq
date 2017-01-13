@@ -18,7 +18,7 @@
 SET QUERY_BAND='UTILITYNAME=BTEQ;OSUSER=__LOGNAME__;PROJECT=EPM;PROCESS/REPORT=epm_acdates_run_mstr.btq;Job=__TWS_SCHED__;' FOR SESSION;
 
 
-DELETE FROM EPM_TABLES.epm_acdates_mstr
+DELETE FROM two_week_space.epm_acdates_mstr
 WHERE pst_per='&pst_per'
 and RPT_VER_CD ='&rpt_ver_cd' ;
 
@@ -27,7 +27,7 @@ and RPT_VER_CD ='&rpt_ver_cd' ;
 LOCKING TABLE NSR_TABLES.ACDATES_MSTR FOR ACCESS
 
 ---selecting new cal_dt as schedules will run at the weekend of the closing week or a week after the closing week.
-Insert into  EPM_TABLES.epm_acdates_mstr
+Insert into  two_week_space.epm_acdates_mstr
 (run_dt
 ,rn_typ
 ,cal_typ_cd
@@ -80,7 +80,7 @@ group by 1,2,3,4,5,6,7,8,9,10,11
                  
 .if ERRORLEVEL <> 0 THEN .GOTO FAILURE
  
- COLLECT STATS ON EPM_TABLES.epm_acdates_mstr;
+ COLLECT STATS ON two_week_space.epm_acdates_mstr;
 .if ERRORLEVEL <> 0 THEN .GOTO FAILURE
 .quit 0 
  
