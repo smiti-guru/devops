@@ -18,3 +18,14 @@ CREATE MULTISET TABLE two_week_space.epm_acdates_mstr ,NO FALLBACK ,
       per_strt INTEGER,
       per_end INTEGER)
 UNIQUE PRIMARY INDEX ( RUN_DT ,RN_TYP ,CAL_TYP_CD );
+
+.if ERRORLEVEL <> 0 THEN .GOTO FAILURE
+ 
+ COLLECT STATS ON two_week_space.epm_acdates_mstr column (RUN_DT ,RN_TYP ,CAL_TYP_CD);
+ 
+.if ERRORLEVEL <> 0 THEN .GOTO FAILURE
+.quit 0 
+ 
+.LABEL FAILURE
+.REMARK '*** BTEQ error detected. ***'
+.quit 99   
